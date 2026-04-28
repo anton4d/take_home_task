@@ -1,1 +1,10 @@
-# Take_Home_task
+# Take_Home_taskl
+
+```
+npm install
+npm run dev
+```
+
+```
+open http://localhost:3000
+```

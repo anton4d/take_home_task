@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      target: migrate
+    command: npm test
+    restart: "no"
+
+  db:
+    tmpfs:
+      - /var/lib/mysql
