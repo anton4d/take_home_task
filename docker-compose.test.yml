@@ -3,9 +3,23 @@ services:
     build:
       context: .
       target: migrate
-    command: npm test
+    command: sh -c "npm run db:push && npm test"
     restart: "no"
+    environment:
+      DATABASE_URL: mysql://root:root@db:3306/app
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
+    image: mysql:8-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     tmpfs:
       - /var/lib/mysql
